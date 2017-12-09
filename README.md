@@ -79,4 +79,5 @@ kelvin: (+|-|2500-9000)
 power: (toggle|0|1)
 ```
 
-Any combination of the above can be specified.
+Any combination of the above can be specified. Note that, due to YAML's
+form, `-` has to be put in quotes.
