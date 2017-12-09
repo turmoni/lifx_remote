@@ -1,0 +1,10 @@
+[Unit]
+Description=LIFX remote control
+
+[Service]
+WorkingDirectory=/usr/local/bin/
+ExecStart=/usr/local/bin/lifx_remote.py /etc/lifx_remote.yaml
+User=pi
+
+[Install]
+WantedBy=multi-user.target

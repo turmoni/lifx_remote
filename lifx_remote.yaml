@@ -1,0 +1,125 @@
+# Name of device to read from
+device_name: MemsArt MA144 RF Controller
+# Key -> action mappings, in the form of:
+# KEY_NAME:
+#  - bulbs:
+#      names:
+#          - Bulb Name
+#      group: Group Name
+#      location: Location Name
+#      exclude:
+#          - Bulb to exclude
+#    action:
+#      brightness: (+|-|0-65535)
+#      hue: (+|-|0-65535)
+#      saturation: (+|-|0-65535)
+#      kelvin: (+|-|2500-9000)
+#      power: (toggle|0|1)
+#  - <bulbs|action: ...>
+#
+# If "bulbs" is ommitted, the bulbs that were last controlled are used. Any
+# combination of actions can be specified or omitted, likewise with bulb
+# selectors.
+#
+# If multiple entries are specified for a key, they will be run in order.
+mappings:
+  # Some basic mappings to control pre-selected lights
+  KEY_VOLUMEUP:
+    - action:
+        brightness: +
+  KEY_VOLUMEDOWN:
+    - action:
+        brightness: '-'
+  KEY_RIGHT:
+    - action:
+        saturation: +
+  KEY_LEFT:
+    - action:
+        saturation: '-'
+  KEY_UP:
+    - action:
+        hue: +
+  KEY_DOWN:
+    - action:
+        hue: '-'
+  KEY_PAGEUP:
+    - action:
+        kelvin: +
+  KEY_PAGEDOWN:
+    - action:
+        kelvin: '-'
+  KEY_POWER:
+    - action:
+        power: toggle
+  # Turn everything off.
+  KEY_BACKSPACE:
+    - bulbs:
+        location: My Home
+      action:
+        power: 0
+  # Select a bulb/group, and ensure it's turned on
+  KEY_1:
+    - bulbs:
+        names: ['Bedroom']
+      action:
+        power: 1
+  KEY_2:
+    - bulbs:
+        names: ['Bathroom']
+      action:
+        power: 1
+  KEY_3:
+    - bulbs:
+        group: Downstairs
+      action:
+        power: 1
+  # Revert to a sensible colour/brightness. Note that with saturation at 0,
+  # hue is irrelevant.
+  KEY_CONFIG:
+    - action:
+        hue: 21800
+        brightness: 50000
+        saturation: 0
+        kelvin: 2750
+  # Turn off all lights except the bedroom, and set the bedroom light to a
+  # dim white.
+  KEY_WWW:
+    - bulbs:
+        location: My Home
+        exclude: ['Bedroom']
+      action:
+        power: 0
+    - bulbs:
+        names: ['Bedroom']
+      action:
+        hue: 21800
+        brightness: 25000
+        saturation: 0
+        kelvin: 2750
+        power: 1
+  # The remote I use has a full keyboard on the back, so might as well use it.
+  # R for red.
+  KEY_R:
+    - action:
+        hue: 0
+        saturation: 0xFFFF
+  # G for green.
+  KEY_G:
+    - action:
+        hue: 0x5555
+        saturation: 0xFFFF
+  # You can guess here.
+  KEY_B:
+    - action:
+        hue: 0xAAAA
+        saturation: 0xFFFF
+
+  # Turn on upstairs lights at a low red.
+  KEY_0:
+    - bulbs: 
+        group: Upstairs
+    - action:
+        hue: 0
+        brightness: 10000
+        saturation: 0xFFFF
+        power: 1
